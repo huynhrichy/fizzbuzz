@@ -1,63 +1,50 @@
-
-/*
 $(document).ready(function() {
-	$('.main').fadeIn(1000, function() {
-	});
-
-	$('#item-box').keypress(function(event) {
-		if (event.which == 13 && $('#item-box').val()) {
-			$('tr:first-child td:nth-child(2)').removeClass('item-box-no-items');
-			$('#store-button').removeClass('store-button-no-items');
-			addItem($(this).val());
+	$('form input[name="integer"').keydown(function(event) {
+		if (event.which == 13) {
+			event.preventDefault();
+			processInput();
 		}
 	});
 
-	$('#store-button').click(function() {
-		var itemName = $('#item-box').val();
-		if (itemName) {
-			if ($('table tr').length >= 1) {
-				$('tr:first-child td:nth-child(2)').removeClass('item-box-no-items');
-				$('#store-button').removeClass('store-button-no-items');
-			}
-			addItem(itemName);
-		}
+	$('form input[value="FizzBuzz!"').click(function() {
+		processInput();
 	});
-
-	$('.unchecked-box').click(checkItem);
-	$('.checked-box').click(uncheckItem);
-	$('.delete-button').click(removeItem);
 });
 
-function addItem(item) {
-	$('#item-box').val('');
-	$('<tr><td><img src="images/unchecked.png" alt="" class="unchecked-box"></td><td class="item-name">' 
-		+ item + '</td><td><img src="images/delete.png" alt="" class="delete-button"></td></tr>')
-	.insertAfter($('#enter-item-row'));
-	$('.unchecked-box').click(checkItem);
-	$('.delete-button').click(removeItem);
+function isPositiveInteger(integer) {
+	return integer === +integer && integer === (integer|0) && integer >= 0;
 }
 
-function removeItem() {
-	$(this).closest('tr').remove();
-	if ($('table tr').length < 2) {
-		$('tr:first-child td:nth-child(2)').addClass('item-box-no-items');
-		$('#store-button').addClass('store-button-no-items');
+function processInput() {
+	$('#result').text('');
+	var integer = parseInt($('form input[name="integer"').val());
+
+	if (isPositiveInteger(integer)) {
+		if (integer === 0) {
+			$('#result').text(integer);
+		} else {
+			$('#result').text(fizzBuzz(integer));
+		}
+	} else {
+		alert('Enter a valid positive integer.');
+		$('form input[name="integer"').val('');
 	}
 }
 
-function uncheckItem() {
-	$('<img src="images/unchecked.png" alt="" class="unchecked-box">')
-        .insertAfter($(this))
-        .on('click', checkItem);
-	$(this).closest('tr').removeClass('done');
-	$(this).remove();
-}
+function fizzBuzz(integer) {
+	var result = "";
 
-function checkItem() {
-	$('<img src="images/checked.png" alt="" class="checked-box">')
-        .insertAfter(this)
-        .on('click', uncheckItem);
-	$(this).closest('tr').addClass('done');
-	$(this).remove();
+	for (var i = 1; i <= integer; i++) {
+		if (i % 3 == 0 && i % 5 == 0) {
+			result += 'FizzBuzz ';
+		} else if (i % 3 == 0) {
+			result += 'Fizz ';
+		} else if (i % 5 == 0) {
+			result += 'Buzz ';
+		} else {
+			result += i + ' ';
+		}
+	}
+
+	return result;
 }
-*/
