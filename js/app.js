@@ -11,8 +11,11 @@ $(document).ready(function() {
 	});
 });
 
-function isPositiveInteger(integer) {
-	return integer === +integer && integer === (integer|0) && integer >= 0;
+function isPositiveInteger(number) {
+	return number === +number && number === (number|0) && number >= 0/* && number % 1 != 0*/;
+	//return number === +number && number === (number|0) && number >= 0 && number != Math.floor(number);
+	//return number === +number && number === (number|0) && number >= 0 && number.indexOf('.') === -1;
+	//return number === +number && number === (number|0) && number >= 0 && Number.isInteger(number);
 }
 
 function processInput() {
